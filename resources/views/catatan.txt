@@ -1,0 +1,5 @@
+jquery
+bootstrap5
+datatable bootstrap 5
+sweetalert
+fontawesome
