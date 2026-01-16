@@ -1,5 +1,14 @@
 jquery
+- scriptnya taruh di script plg atas
 bootstrap5
+- css yang css/bootstrap.min.css ditaruh diplg atas
+- script yang js/bootstrap.bundle.min.js ditaruh dibawahnya jquery
 datatable bootstrap 5
+- css yang DataTables/datatables.min.css dibawah css bootstrap
+- script yang DataTables/datatables.min.js dibawah script bootstrap
 sweetalert
+ download dari web https://www.jsdelivr.com/package/npm/sweetalert2
+ - css yang dist/sweetalert2.min.css dibawah css datatable
+ - script yang dist/sweetalert2.all.min.js dibawah datatable
 fontawesome
+- download yang buat web terus ambil yang css/all.min.css ditaruh dibawah sweetalert
