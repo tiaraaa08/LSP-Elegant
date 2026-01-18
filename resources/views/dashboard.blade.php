@@ -15,7 +15,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
                         <h6 class="fw-medium text-primary mb-2">Jumlah Layanan</h6>
-                        <h4 class="fs-7 text-primary">9</h4>
+                        <h4 class="fs-7 text-primary">{{ $layanan->count() }}</h4>
                     </div>
                     <span class="text-primary display-6">
                         <i class="fa-regular fa-truck"></i>
@@ -29,8 +29,8 @@
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
-                        <h6 class="fw-medium text-success mb-2">Transaksi Baru</h6>
-                        <h4 class="fs-7 text-success">9</h4>
+                        <h6 class="fw-medium text-success mb-2">Transaksi</h6>
+                        <h4 class="fs-7 text-success">{{ $transaksi->count() }}</h4>
                     </div>
                     <span class="text-success display-6">
                         <i class="fa-solid fa-credit-card"></i>
@@ -45,7 +45,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
                         <h6 class="fw-medium text-warning mb-2">Sedang Diproses</h6>
-                        <h4 class="fs-7 text-warning">9</h4>
+                        <h4 class="fs-7 text-warning">{{ $proses->count() }}</h4>
                     </div>
                     <span class="text-warning display-6">
                         <i class="fa-solid fa-truck-fast"></i>
@@ -60,7 +60,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
                         <h6 class="fw-medium text-danger mb-2"> Belum Dibayar</h6>
-                        <h4 class="fs-7 text-danger">8</h4>
+                        <h4 class="fs-7 text-danger">{{ $belumBayar->count() }}</h4>
                     </div>
                     <span class="text-danger display-6">
                         <i class="fa-regular fa-credit-card"></i>
@@ -86,14 +86,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                        <td>Row 1 Data 1</td>
-                        <td>Row 1 Data 2</td>
-                    </tr>
+                    @forelse ($transaksi as $t)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $t->nama_pelanggan }}</td>
+                            <td>{{ $t->layanan->nama_layanan }}</td>
+                            <td>{{ $t->berat }} KG</td>
+                            <td>{{ $t->waktu_transaksi }}</td>
+                            <td>
+                                @if ($t->pembayaran == 'Belum Bayar')
+                                    <span class="text-danger">{{ $t->pembayaran }}</span>
+                                    @elseif ($t->pembayaran == 'Lunas')
+                                    <span class="text-success">{{ $t->pembayaran }}</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-danger">Data tidak tersedia</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

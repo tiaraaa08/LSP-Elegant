@@ -11,7 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('tb_layanan', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_layanan', 30);
+            $table->integer('harga_per_kg');
+        });
     }
 
     /**
@@ -19,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('tb_layanan');
     }
 };

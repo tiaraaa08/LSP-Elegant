@@ -34,7 +34,7 @@
                         <span class="sr-only">Home</span>
                         <span class="icon logo" aria-hidden="true"></span>
                         <div class="logo-text">
-                            <span class="logo-title">Elegant</span>
+                            <span class="logo-title">Tiara</span>
                             <span class="logo-subtitle">Dashboard</span>
                         </div>
 
@@ -220,6 +220,23 @@
     <script src="{{ asset('template/js/script.js') }}"></script>
     <!-- datatable -->
     @stack('scripts')
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+            });
+        </script>
+        @elseif ($errors->any())
+                <script>
+            Swal.fire({
+                icon: 'error',
+                text: '{{ $errors->first() }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 </body>
 
 </html>

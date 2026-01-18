@@ -33,17 +33,17 @@
             <tr>
                 <td class="w-50">Nama Pelanggan</td>
                 <td class="w-5">:</td>
-                <td class="w-45">Tes</td>
+                <td class="w-45">{{$transaksi->nama_pelanggan }}</td>
             </tr>
             <tr>
-                <td class="w-50">Nama Pelanggan</td>
+                <td class="w-50">No HP</td>
                 <td class="w-5">:</td>
-                <td class="w-45">Tes</td>
+                <td class="w-45">dummy</td>
             </tr>
             <tr>
                 <td class="w-50">Waktu Transaksi</td>
                 <td class="w-5">:</td>
-                <td class="w-45">14-01-2022</td>
+                <td class="w-45">{{ $transaksi->waktu_transaksi }}</td>
             </tr>
         </table>
         <div class="divider-print"></div>
@@ -51,17 +51,17 @@
             <tr>
                 <td class="w-50">Berat</td>
                 <td class="w-5">:</td>
-                <td class="w-45">9 KG</td>
+                <td class="w-45">{{ $transaksi->berat }} KG</td>
             </tr>
             <tr>
                 <td class="w-50">Harga Per KG</td>
                 <td class="w-5">:</td>
-                <td class="w-45">Rp900.000</td>
+                <td class="w-45">Rp {{ number_format($transaksi->layanan->harga_per_kg, 0, ',', '.') }}</td>
             </tr>
             <tr>
                 <td class="w-50">Layanan</td>
                 <td class="w-5">:</td>
-                <td class="w-45">Cuci Kering</td>
+                <td class="w-45">{{ $transaksi->layanan->nama_layanan }}</td>
             </tr>
         </table>
         <div class="divider-print"></div>
@@ -69,7 +69,7 @@
             <tr>
                 <td class="w-50">Total</td>
                 <td class="w-5">:</td>
-                <td class="w-45">Rp900.000</td>
+                <td class="w-45">Rp {{ number_format($transaksi->layanan->harga_per_kg * $transaksi->berat, 0, ',', '.') }}</td>
             </tr>
         </table>
         <div class="divider-print"> </div>
@@ -81,6 +81,9 @@
     <script>
         window.onload = function() {
             window.print();
+            window.onafterprint = () => {
+                window.location.href = "{{ route('transaksi.index') }}";
+            }
         }
     </script>
 </body>

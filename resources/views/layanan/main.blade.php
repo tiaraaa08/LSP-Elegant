@@ -28,26 +28,38 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>
-                                <div class="d-flex gap-2">
-                                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
-                                        data-bs-target="#editLayanan"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button type="button" onclick="KonfirmasiHapus()" class="btn btn-outline-danger"><i
-                                            class="fa-solid fa-trash-can"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        @forelse ($layanan as $L)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $L->nama_layanan }}</td>
+                                <td>Rp {{ number_format($L->harga_per_kg, 0, ',', '.') }}</td>
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal"
+                                            data-bs-target="#editLayanan{{ $L->id }}"><i
+                                                class="fa-solid fa-pen-to-square"></i></button>
+                                        <form action="{{ route('layanan.destroy', $L->id) }}" method="POST"
+                                            class="KonfirmasiHapus">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger"><i
+                                                    class="fa-solid fa-trash-can"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            @include('layanan.edit')
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-danger">Data Layanan Tidak Tersedia</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     @include('layanan.tambah')
-    @include('layanan.edit')
 @endsection
 @push('scripts')
     <script>
@@ -55,37 +67,88 @@
             $('#tableTransaksi').DataTable();
         })
 
-        function KonfirmasiHapus() {
-            Swal.fire({
-                title: "Yakin menghapus data ini?",
-                text: "Data tidak tkan bisa dipulihkan",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Ya! Hapus Data"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Terhapus!",
-                        text: "Data berhasil dihapus.",
-                        icon: "success"
-                    });
-                }
-            });
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const hapus = document.querySelectorAll(".KonfirmasiHapus");
 
-        //function rupiah
-        document.querySelectorAll('.HargaRupiah').forEach(input => {
-            input.addEventListener('input', function() {
-                let value = this.value.replace(/\D/g, '');
-                this.value = new Intl.NumberFormat('id-ID', {
-                    style: 'currency',
-                    currency: 'IDR',
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 0
-                }).format(value);
+            hapus.forEach((form) => {
+                form.addEventListener("submit", function(e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: "Yakin menghapus data ini?",
+                        text: "Data tidak tkan bisa dipulihkan",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Ya! Hapus Data"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
             });
         });
+
+        //function rupiah
+        document.addEventListener('shown.bs.modal', function(e) {
+            const inputs = e.target.querySelectorAll('.HargaRupiah');
+
+            inputs.forEach(input => {
+                // format saat modal dibuka
+                let mentah = input.value.replace(/\D/g, '');
+
+                if (mentah !== '') {
+                    input.value = new Intl.NumberFormat('id-ID', {
+                        style: 'currency',
+                        currency: 'IDR',
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                    }).format(Number(mentah));
+                }
+
+                // format ulang saat user ngetik
+                input.addEventListener('input', function() {
+                    let val = this.value.replace(/\D/g, '');
+                    this.value = val ?
+                        new Intl.NumberFormat('id-ID', {
+                            style: 'currency',
+                            currency: 'IDR',
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0
+                        }).format(Number(val)) :
+                        '';
+                });
+            });
+        });
+        //function rupiah
+        // document.querySelectorAll('.HargaRupiah').forEach(input => {
+        //     input.addEventListener('input', function() {
+        //         let value = this.value.replace(/\D/g, '');
+        //         this.value = new Intl.NumberFormat('id-ID', {
+        //             style: 'currency',
+        //             currency: 'IDR',
+        //             minimumFractionDigits: 0,
+        //             maximumFractionDigits: 0
+        //         }).format(value);
+        //     });
+        // });
     </script>
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                text: '{{ $errors->first() }}',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    {{-- @elseif(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                text: '{{ session('success') }}',
+                confirmButtonText: 'OK'
+            });
+        </script> --}}
+    @endif
 @endpush
