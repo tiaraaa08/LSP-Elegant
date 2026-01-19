@@ -18,7 +18,7 @@
                         class="fa-solid fa-plus"></i></button>
             </div>
             <div class="table-responsive">
-                <table class="table" id="tableTransaksi">
+                <table class="table" id="tableLayanan">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($layanan as $L)
+                        @foreach ($layanan as $L)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $L->nama_layanan }}</td>
@@ -49,11 +49,7 @@
                                 </td>
                             </tr>
                             @include('layanan.edit')
-                        @empty
-                            <tr>
-                                <td colspan="4" class="text-danger">Data Layanan Tidak Tersedia</td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -64,7 +60,11 @@
 @push('scripts')
     <script>
         $('document').ready(function() {
-            $('#tableTransaksi').DataTable();
+            $('#tableLayanan').DataTable({
+                language: {
+                    emptyTable: '<span class="text-danger">Data layanan tidak tersedia</span>'
+                }
+            });
         })
 
         document.addEventListener('DOMContentLoaded', function() {

@@ -33,7 +33,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($transaksi as $t)
+                    @foreach ($transaksi as $t)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $t->waktu_transaksi }}</td>
@@ -78,11 +78,7 @@
                             </td>
                         </tr>
                         @include('transaksi.edit')
-                    @empty
-                        <tr>
-                            <td colspan="10" class="text-danger">Data transaksi tidak tersedia</td>
-                        </tr>
-                    @endforelse
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -92,7 +88,11 @@
 @push('scripts')
     <script>
         $('document').ready(function() {
-            $('#tableTransaksi').DataTable();
+            $('#tableTransaksi').DataTable({
+                language: {
+                    emptyTable : '<span class="text-danger"> Data transaksi tidak tersedia</span>'
+                }
+            });
         });
 
         document.addEventListener('DOMContentLoaded', function() {
