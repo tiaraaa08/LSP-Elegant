@@ -18,12 +18,14 @@ class TransaksiController extends Controller
 
     public function store(Request $request)
     {
+        $bayar = preg_replace('/\D/', '', $request->jumlah_bayar);
         Transaksi::create([
             'waktu_transaksi' => $request->waktu_transaksi,
             'nama_pelanggan' => $request->nama_pelanggan,
             'id_layanan' => $request->id_layanan,
             'berat' => $request->berat,
             'pembayaran' => $request->pembayaran,
+            'jumlah_bayar' => $bayar,
             'keterangan' => 'Proses'
         ]);
 
@@ -33,12 +35,13 @@ class TransaksiController extends Controller
     public function update(Request $request, $id)
     {
         $transaksi = Transaksi::find($id);
-
+        $bayar = preg_replace('/\D/', '', $request->jumlah_bayar);
         $transaksi->update([
             'waktu_transaksi' => $request->waktu_transaksi,
             'nama_pelanggan' => $request->nama_pelanggan,
             'id_layanan' => $request->id_layanan,
             'berat' => $request->berat,
+            'jumlah_bayar' => $bayar,
             'pembayaran' => $request->pembayaran,
             'keterangan' => $request->keterangan
         ]);

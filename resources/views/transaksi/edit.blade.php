@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-7">
                             <label for="exampleInputEmail1" class="form-label">Jumlah Bayar</label>
-                            <input required type="text" class="form-control border HargaRupiah"
+                            <input required type="text" class="form-control border HargaRupiah" name="jumlah_bayar"
                                 placeholder="Masukkan Total Pembayaran" aria-describedby="basic-addon2">
                         </div>
                     </div>

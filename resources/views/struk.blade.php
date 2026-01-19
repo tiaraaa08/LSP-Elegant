@@ -71,6 +71,11 @@
                 <td class="w-5">:</td>
                 <td class="w-45">Rp {{ number_format($transaksi->layanan->harga_per_kg * $transaksi->berat, 0, ',', '.') }}</td>
             </tr>
+            <tr>
+                <td class="w-50">Jumlah Bayar</td>
+                <td class="w-5">:</td>
+                <td class="w-45">Rp {{ number_format($transaksi->jumlah_bayar, 0, ',', '.') }}</td>
+            </tr>
         </table>
         <div class="divider-print"> </div>
         <h6 class="text-center">LSP 2026 - Tiara</h6>

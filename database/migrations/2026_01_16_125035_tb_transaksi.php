@@ -16,6 +16,7 @@ return new class extends Migration
             $table->date('waktu_transaksi');
             $table->string('nama_pelanggan', 50);
             $table->integer('id_layanan')->length(11);
+            $table->integer('jumlah_bayar');
             $table->integer('berat')->length(11);
             $table->enum('pembayaran', ['Belum Bayar', 'Lunas'])->default('Belum Bayar');
             $table->enum('keterangan', ['Proses', 'Selesai'])->default('Proses');
