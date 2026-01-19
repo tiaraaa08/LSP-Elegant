@@ -11,11 +11,11 @@
                 <div class="modal-body">
                     <div class="mb-2">
                          <label for="exampleInputPassword1" class="form-label">Nama Layanan</label>
-                            <input type="text" name="nama_layanan" class="form-control border" placeholder="Masukkan Nama Layanan" id="exampleInputPassword1">
+                            <input type="text" required name="nama_layanan" class="form-control border" placeholder="Masukkan Nama Layanan" id="exampleInputPassword1">
                     </div>
                     <div class="mb-2">
                          <label for="exampleInputPassword1" class="form-label">Harga Per KG</label>
-                            <input type="text" class="form-control border HargaRupiah" name="harga_per_kg" placeholder="Masukkan Harga Per KG" id="exampleInputPassword1">
+                            <input type="text" required class="form-control border HargaRupiah" name="harga_per_kg" placeholder="Masukkan Harga Per KG" id="exampleInputPassword1">
                     </div>
                 </div>
                 <div class="modal-footer">
