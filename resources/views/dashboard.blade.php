@@ -14,7 +14,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-center justify-content-between">
                     <div>
-                        <h6 class="fw-medium text-primary mb-2">Jumlah Layanan</h6>
+                        <h6 class="fw-medium text-primary mb-2">Jumlah Layanan fix</h6>
                         <h4 class="fs-7 text-primary">{{ $layanan->count() }}</h4>
                     </div>
                     <span class="text-primary display-6">
