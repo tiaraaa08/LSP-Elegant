@@ -43,7 +43,7 @@
             <tr>
                 <td class="w-50">Waktu Transaksi</td>
                 <td class="w-5">:</td>
-                <td class="w-45">{{ $transaksi->waktu_transaksi }}</td>
+                <td class="w-45">{{ date('d-M-Y', strtotime($transaksi->waktu_transaksi)) }}</td>
             </tr>
         </table>
         <div class="divider-print"></div>
